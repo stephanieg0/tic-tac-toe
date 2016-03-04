@@ -22,6 +22,10 @@
     "extends": "eslint:recommended",
     "rules": {
       "no-console": 0
+    },
+    "globals": {
+      "window": true,
+      "document": true
     }
   },
   "author": "Stephanie Goldstein <stephanie.miranda.valdez@gmail.com>",
