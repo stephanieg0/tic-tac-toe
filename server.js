@@ -3,6 +3,10 @@
 const express = require('express');
 const app = express();
 
+//setting up websockets
+const server = require('http').createServer(app);
+const ws = require('socket.io')(server);
+
 const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'jade');
@@ -13,6 +17,12 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`app listening on port: ${PORT}`);
 });
+
+ws.on('connection', socket => { // eslint-disable-line no-unused-vars
+  console.log('back end socket connected');
+
+});
+

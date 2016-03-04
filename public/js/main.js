@@ -1,5 +1,12 @@
 (function () {
   'use strict';
+  //connecting to websockets
+
+  const ws = io.connect(); // eslint-disable-line no-undef
+
+  ws.on('connect', () => {
+    console.log('front end socket!!');
+  });
 
   //assigning the inputs into a variable to use.
   const squareName = document.querySelectorAll('input');
@@ -75,10 +82,24 @@
         }
         //console.log(number);
 
-        winningArray();
+
+        generateLI(number);
+
     });//end of click function
 
    }//end of for loop
+
+
+   //sending information to Node
+   function generateLI (move) {
+    console.log('move', move);
+
+
+
+    winningArray();
+
+   }
+
 
   //comparing values to have a winner.
    function winningArray () {
@@ -98,5 +119,6 @@
       }
     }
    }//end of winningArray fn
+
 
 })();//end of iife
