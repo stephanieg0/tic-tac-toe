@@ -1,0 +1,42 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "tic tac toe game in node using websockets",
+  "main": "index.js",
+  "scripts": {
+    "serve": "nodemon server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephanieg0/tic-tac-toe.git"
+  },
+  "eslintConfig": {
+    "env": {
+      "mocha": true,
+      "node": true,
+      "es6": true,
+      "jquery": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "no-console": 0
+    }
+  },
+  "author": "Stephanie Goldstein <stephanie.miranda.valdez@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stephanieg0/tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/stephanieg0/tic-tac-toe#readme",
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "nodemon": "^1.9.1"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "socket.io": "^1.4.5"
+  }
+}
