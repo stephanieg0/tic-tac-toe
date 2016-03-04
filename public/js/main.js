@@ -4,12 +4,14 @@
 
   const ws = io.connect(); // eslint-disable-line no-undef
 
-  ws.on('connect', () => {
-    console.log('front end socket!!');
-  });
+  //ws.on('connect', () => {
+    //console.log('front end socket!!');
+  //});
 
   //assigning the inputs into a variable to use.
   const squareName = document.querySelectorAll('input');
+
+
 
   let count = 0;
 
@@ -82,19 +84,26 @@
         }
         //console.log(number);
 
-
-        generateLI(number);
+      //emitting event to the server and sending data.
+       ws.emit('data', number);
+       generateLI(number);
 
     });//end of click function
 
    }//end of for loop
 
 
+  ws.on('board sent', function () {
+    // draw board for other client coming from server
+  });
+
+
+
    //sending information to Node
    function generateLI (move) {
     console.log('move', move);
 
-
+    //setAttribute(move);
 
     winningArray();
 
