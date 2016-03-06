@@ -1,3 +1,8 @@
-.box-field {
-  display: inline;
-}
+input[value="x"] {
+  color: red;
+
+  }​
+input[value="o"] {
+  color: blue;
+
+  }​
