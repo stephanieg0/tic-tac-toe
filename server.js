@@ -25,9 +25,11 @@ ws.on('connection', socket => { // eslint-disable-line no-unused-vars
   console.log('back end socket connected');
 
   //listening for data event in main.js
-  socket.on('data', (data) => {
-    console.log('data', data);
-    socket.emit('recieveData', (data));
+  socket.on('data', (count, number) => {
+    console.log('count', count);
+    console.log('number', number);
+    const data = {count: count, number: number};
+    socket.broadcast.emit('recieveData', (data));
   });
 });
 

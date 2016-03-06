@@ -32,65 +32,79 @@
 
     squareName[i].addEventListener('click', function start (event) {
        //getting name and assigning to a variable.
+
        number = parseInt(event.target.name);
-       console.log(number);
        //counting each click as a turn.
        count++;
 
-       checkingWhichPlayer(count, event);
+       checkingWhichPlayer(count, number);
+
+      //emitting event to the server and sending data.
+      ws.emit('data', count, number);
+
     });//end of click function
 
   }//end of for loop
 
+  //recieving data from server
+  ws.on('recieveData', (data) => {
+    count = data.count;
+    number = data.number
+    checkingWhichPlayer(count, number);
+   });
+
 
   //determine which player's turn it is; x or o.
-  function checkingWhichPlayer (count, event) {
-      console.log('count', count);
+  function checkingWhichPlayer (count, number) {
+      number = number.toString();
+
+      const boxInput = document.querySelector(`input[name='${number}']`);
+      //console.log('boxInput', boxInput);
 
       //alternating a value of x or o to each turn based on remainder
      if (count % 2 !== 0){
 
-        event.target.value = 'x';
+        boxInput.value = 'x';
 
         //possible wins for x
-        if (number === 1 || number ===2 || number === 3) {
+        if (number === '1' || number === '2' || number === '3') {
           horizontal1.push('x');
-        } if (number === 4 || number === 5 || number === 6) {
+        } if (number === '4' || number === '5' || number === '6') {
           horizontal2.push('x');
-        } if (number === 7 || number === 8 || number === 9) {
+        } if (number === '7' || number === '8' || number === '9') {
           horizontal3.push('x');
-        } if (number === 1 || number === 4 || number === 7) {
+        } if (number === '1' || number === '4' || number === '7') {
           vertical1.push('x');
-        } if (number === 2 || number === 5 || number === 8) {
+        } if (number === '2' || number === '5' || number === '8') {
           vertical2.push('x');
-        } if (number === 3 || number === 6 || number === 9) {
+        } if (number === '3' || number === '6' || number === '9') {
           vertical3.push('x');
-        } if (number === 1 || number === 5 || number === 9) {
+        } if (number === '1' || number === '5' || number === '9') {
           diagonal1.push('x');
-        } if (number === 3 || number === 5 || number === 7) {
+        } if (number === '3' || number === '5' || number === '7') {
           diagonal2.push('x');
         }
 
       } else {
 
-        event.target.value = 'o';
+        boxInput.value = 'o';
 
         //possible wins for o
-        if (number === 1 || number ===2 || number === 3) {
+        if (number === '1' || number === '2' || number === '3') {
           horizontal1.push('o');
-        } if (number === 4 || number === 5 || number === 6) {
+        } if (number === '4' || number === '5' || number === '6') {
           horizontal2.push('o');
-        } if (number === 7 || number === 8 || number === 9) {
+        } if (number === '7' || number === '8' || number === '9') {
           horizontal3.push('o');
-        } if (number === 1 || number === 4 || number === 7) {
+        } if (number === '1' || number === '4' || number === '7') {
           vertical1.push('o');
-        } if (number === 2 || number === 5 || number === 8) {
+        } if (number === '2' || number === '5' || number === '8') {
           vertical2.push('o');
-        } if (number === 3 || number === 6 || number === 9) {
+        } if (number === '3' || number === '6' || number === '9') {
           vertical3.push('o');
-        } if (number === 1 || number === 5 || number === 9) {
+        } if (number === '1' || number === '5' || number === '9') {
           diagonal1.push('o');
-        } if (number === 3 || number === 5 || number === 7) {
+        } if (number === '3' || number === '5' || number === '7') {
           diagonal2.push('o');
         }
 
@@ -100,18 +114,6 @@
     winningArray();
 
   }//end of whichPlayer fn
-
-      //emitting event to the server and sending data.
-       //ws.emit('data', number);
-       //winningArray(number);
-
-
-
-
-    //ws.on('recieveData', data => {
-      //console.log('data from server', data);
-      ////start();
-     //});
 
 
   //comparing values to have a winner.
@@ -123,7 +125,9 @@
     for (var i = 0; i < masterArray.length; i ++){
 
       if (masterArray[i].length === 3) {
-        let string = masterArray[i].join('').toString();
+
+        let string = masterArray[i].join('');
+
         if (string === 'xxx'){
           alert('player 1 won!'); // eslint-disable-line no-undef
         } if (string === 'ooo') {
